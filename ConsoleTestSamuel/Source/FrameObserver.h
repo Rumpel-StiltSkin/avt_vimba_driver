@@ -31,7 +31,6 @@
 
 #include <queue>
 #include "VimbaCPP/Include/VimbaCPP.h"
-#include "ProgramConfig.h"
 #ifdef WIN32
 #include <Windows.h>
 #endif //WIN32

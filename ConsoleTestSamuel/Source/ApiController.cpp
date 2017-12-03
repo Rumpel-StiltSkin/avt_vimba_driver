@@ -96,10 +96,12 @@ void ApiController::ShutDown()
 // Returns:
 //  An API status code
 //
-VmbErrorType ApiController::StartContinuousImageAcquisition( const ProgramConfig& Config )
+VmbErrorType ApiController::StartContinuousImageAcquisition()
 {
     // Open the desired camera by its ID
-    VmbErrorType res = m_system.OpenCameraByID( Config.getCameraID().c_str(), VmbAccessModeFull, m_pCamera );
+    VmbErrorType res = m_system.OpenCameraByID( "DEV_000F315BA471", VmbAccessModeFull, m_pCamera );
+    // VmbErrorType res = m_system.OpenCameraByID( "192.168.2.2", VmbAccessModeFull, m_pCamera );
+    std::cout << res << std::endl;
     if ( VmbErrorSuccess == res )
     {
         // Set the GeV packet size to the highest possible value
