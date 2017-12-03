@@ -127,7 +127,7 @@ VmbErrorType ApiController::StartContinuousImageAcquisition( const ProgramConfig
             if ( VmbErrorSuccess == res )
             {
                 // Create a frame observer for this camera (This will be wrapped in a shared_ptr so we don't delete it)
-                m_pFrameObserver = new FrameObserver( m_pCamera, Config.getFrameInfos(), Config.getColorProcessing(), Config.getRGBValue() );
+                m_pFrameObserver = new FrameObserver( m_pCamera );
                 // Start streaming
                 res = m_pCamera->StartContinuousImageAcquisition( NUM_FRAMES, IFrameObserverPtr( m_pFrameObserver ));
             }

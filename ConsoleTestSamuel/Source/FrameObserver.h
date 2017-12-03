@@ -52,7 +52,7 @@ public:
     //  [in]    eFrameInfos         Indicates how the frame will be displayed
     //  [in]    eColorProcessing    Indicates how color processing is applied
     //
-    FrameObserver( CameraPtr pCamera, FrameInfos eFrameInfos, ColorProcessing eColorProcessing, bool bRGBValue );
+    FrameObserver( CameraPtr pCamera );
     
     //
     // This is our callback routine that will be executed on every received frame.
@@ -98,9 +98,6 @@ private:
             m_State = false;
         }
     };
-    const FrameInfos            m_eFrameInfos;
-    const bool                  m_bRGB;
-    const ColorProcessing       m_eColorProcessing;
 };
 
 }}} // namespace AVT::VmbAPI::Examples

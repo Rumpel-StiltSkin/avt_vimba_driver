@@ -36,8 +36,6 @@
 
 #include "FrameObserver.h"
 
-#include "TransformImage.h"
-
 namespace AVT {
 namespace VmbAPI {
 namespace Examples {
@@ -51,8 +49,9 @@ namespace Examples {
 //  [in]    eColorProcessing    Indicates how color processing is applied
 //
 FrameObserver::FrameObserver( CameraPtr pCamera )
-    :   IFrameObserver( pCamera )
-
+    :	IFrameObserver( pCamera )
+{
+}
 // Prints out frame status codes as readable status messages
 //
 // Parameters:
