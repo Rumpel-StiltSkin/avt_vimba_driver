@@ -30,7 +30,7 @@
 #include <iomanip>
 #include <time.h>
 
-#include "FrameObserver.h"
+#include "avt_vimba_driver/FrameObserver.h"
 
 namespace AVT {
 namespace VmbAPI {
@@ -90,7 +90,17 @@ void FrameObserver::FrameReceived( const FramePtr pFrame )
 {
     if(! SP_ISNULL( pFrame ) )
     {
-        VmbFrameStatusType status;
+	//VmbUint32_t 	nWidth = 0;
+	//VmbErrorType	res;        
+	//res = pFrame->GetBufferSize(nWidth);
+	//if (VmbErrorSuccess == res)
+	//{
+	//    std::cout << nWidth << std::endl;
+	//} else {
+	//    std::cout << "?" << std::endl;
+	//}
+
+	VmbFrameStatusType status;
         VmbErrorType Result;
         Result = SP_ACCESS( pFrame)->GetReceiveStatus( status);
         if( VmbErrorSuccess == Result && VmbFrameStatusComplete == status)

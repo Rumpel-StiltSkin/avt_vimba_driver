@@ -1,0 +1,19 @@
+<?xml version="1.0"?>
+<package>
+  <name>avt_vimba_driver</name>
+  <version>0.0.10</version>
+  <description>ROS Wrapper of the AVT VIMBA Ethernet SDK on Armv8.</description>
+
+  <maintainer email="Samuel_Ong94@hotmail.com">Samuel Ong</maintainer>
+
+  <license>BSD</license>
+
+  <author email="Samuel_Ong94@hotmail.com">Samuel Ong</author>
+  <author>Allied Vision Technologies</author>
+
+  <buildtool_depend>catkin</buildtool_depend>
+  <build_depend>roscpp</build_depend>
+  <run_depend>roscpp</run_depend>
+  <run_depend>std_msgs</run_depend>
+
+</package>

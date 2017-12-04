@@ -31,7 +31,7 @@
 #include <iostream>
 
 #include "VimbaCPP/Include/VimbaCPP.h"
-#include "ApiController.h"
+#include "avt_vimba_driver/ApiController.h"
 
 int main( int argc, char* argv[] )
 {

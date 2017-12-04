@@ -29,7 +29,7 @@
 #include <sstream>
 #include <iostream>
 
-#include "ApiController.h"
+#include "avt_vimba_driver/ApiController.h"
 
 namespace AVT {
 namespace VmbAPI {
@@ -90,21 +90,22 @@ VmbErrorType ApiController::StartContinuousImageAcquisition()
     {
         // Set the GeV packet size to the highest possible value
         // (In this example we do not test whether this cam actually is a GigE cam)
-        //FeaturePtr pCommandFeature;
-        //if ( VmbErrorSuccess == m_pCamera->GetFeatureByName( "GVSPAdjustPacketSize", pCommandFeature ))
-        //{
-        //    if ( VmbErrorSuccess == pCommandFeature->RunCommand() )
-        //    {
-        //        bool bIsCommandDone = false;
-        //        do
-        //        {
-        //            if ( VmbErrorSuccess != pCommandFeature->IsCommandDone( bIsCommandDone ))
-        //            {
-        //                break;
-        //            }
-        //        } while ( false == bIsCommandDone );
-        //    }
-        //}
+	// Needed on first startup of camera, to set GVSP size, else frame will become incomplete
+        FeaturePtr pCommandFeature;
+        if ( VmbErrorSuccess == m_pCamera->GetFeatureByName( "GVSPAdjustPacketSize", pCommandFeature ))
+        {
+            if ( VmbErrorSuccess == pCommandFeature->RunCommand() )
+            {
+                bool bIsCommandDone = false;
+                do
+                {
+                    if ( VmbErrorSuccess != pCommandFeature->IsCommandDone( bIsCommandDone ))
+                    {
+                        break;
+                    }
+                } while ( false == bIsCommandDone );
+            }
+        }
 
         if ( VmbErrorSuccess == res )
         {
