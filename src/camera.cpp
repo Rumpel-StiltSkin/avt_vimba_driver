@@ -42,6 +42,7 @@ int main(int argc, char** argv)
     if ( VmbErrorSuccess == err )
     {
       std::cout<<"Opening camera with ID: 192.168.2.2";
+      SP_SET( m_pFrameObserver , new FrameObserver( m_pCamera ) );
       err = apiController.StartContinuousImageAcquisition();
 	    if ( VmbErrorSuccess != err)
 	    {
@@ -62,17 +63,17 @@ int main(int argc, char** argv)
       //const FramePtr pFrame;
       //pFrame = frameObserver.GetFrame();
 
-      FramePtr pFrame = apiController.GetFrame();
+      // FramePtr pFrame = apiController.GetFrame();
 
-      if (rosVimbaApi.frameToImage(SP_ACCESS(pFrame), img))
-      {
-        sensor_msgs::CameraInfo ci = SP_ACCESS(pFrame)->getCameraInfo();
-        ci.header.stamp = img.header.stamp = ros_time;
-        img.header.frame_id = ci.header.frame_id;
-        pub.publish(img, ci);
-      } else {
-      ROS_WARN_STREAM("Function frameToImage returned 0. No image published.");
-      }
+      // if (rosVimbaApi.frameToImage(SP_ACCESS(pFrame), img))
+      // {
+      //   sensor_msgs::CameraInfo ci = SP_ACCESS(pFrame)->getCameraInfo();
+      //   ci.header.stamp = img.header.stamp = ros_time;
+      //   img.header.frame_id = ci.header.frame_id;
+      //   pub.publish(img, ci);
+      // } else {
+      // ROS_WARN_STREAM("Function frameToImage returned 0. No image published.");
+      // }
     ros::spinOnce();
     loop_rate.sleep();
   	}
