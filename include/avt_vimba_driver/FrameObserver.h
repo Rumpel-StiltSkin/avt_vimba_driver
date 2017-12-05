@@ -66,16 +66,6 @@ public:
     virtual void FrameReceived( const FramePtr pFrame );
 
     bool frameToImage(const FramePtr m_pCamera, sensor_msgs::Image& image)
-    FramePtr FrameObserver::GetFrame( const FramePtr pFrame )
-
-    //
-    // After the view has been notified about a new frame it can pick it up.
-    // It is then removed from the internal queue
-    //
-    // Returns:
-    //  A shared pointer to the latest frame
-    //
-    FramePtr GetFrame();
 
 };
 

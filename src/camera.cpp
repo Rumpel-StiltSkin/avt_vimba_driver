@@ -1,4 +1,3 @@
-#include <avt_vimba_driver/camera.h>
 #include <avt_vimba_driver/RosVimbaApi.h>
 #include <avt_vimba_driver/FrameObserver.h>
 
@@ -25,7 +24,8 @@ int main(int argc, char** argv)
 
 	VmbErrorType err = VmbErrorSuccess;
 
-	AVT::VmbAPI::Examples::ApiController apiController;        
+	AVT::VmbAPI::Examples::ApiController apiController;
+  ROS::VmbAPI::RosVimbaApi rosVimbaApi;        
 
 	// Startup Vimba
 	err = apiController.StartUp();        
