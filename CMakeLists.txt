@@ -2,17 +2,16 @@ cmake_minimum_required(VERSION 2.8.3)
 project(avt_vimba_driver)
 
 find_package(catkin REQUIRED COMPONENTS
-  #libvimba
-  #camera_info_manager
-  #diagnostic_updater
-  #dynamic_reconfigure
-  #image_geometry
-  #image_transport
-  #message_filters
-  #roscpp
-  #sensor_msgs
-  #std_msgs
-  #polled_camera
+  camera_info_manager
+  diagnostic_updater
+  dynamic_reconfigure
+  image_geometry
+  image_transport
+  message_filters
+  roscpp
+  sensor_msgs
+  std_msgs
+  polled_camera
 )
 
 ## CMAKE_MODULE_PATH sets path to search for CMake Modules
@@ -41,7 +40,7 @@ include_directories(
 )
 
 
-add_executable(camera src/program.cpp src/FrameObserver.cpp src/ApiController.cpp)
+add_executable(camera src/camera.cpp src/FrameObserver.cpp src/ApiController.cpp)
 
 target_link_libraries(camera
   ${catkin_LIBRARIES}

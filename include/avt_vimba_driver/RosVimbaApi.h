@@ -24,7 +24,7 @@ class RosVimbaApi {
 
 public:
 
-	void CameraStart()
+	VmbErrorType CameraStart()
 	{
 	    VmbErrorType err = VmbErrorSuccess;
 
@@ -134,14 +134,13 @@ public:
                                    buffer_ptr);
     } else {
       ROS_ERROR_STREAM("[" << ros::this_node::getName()
-        << "]: Could not GetImage. "
-        << "\n Error: " << errorCodeToMessage(err));
+        << "]: Could not GetImage. ");
     }
     return res;
   }
 
 
-}
+};
 
 
 }} // ROS::VmbAPI
