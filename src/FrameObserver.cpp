@@ -32,12 +32,6 @@
 
 #include "avt_vimba_driver/FrameObserver.h"
 
-#include <ros/ros.h>
-#include <ros/console.h>
-#include <sensor_msgs/Image.h>
-#include <sensor_msgs/image_encodings.h>
-#include <sensor_msgs/fill_image.h>
-
 namespace AVT {
 namespace VmbAPI {
 namespace Examples {
@@ -94,8 +88,8 @@ void PrintFrameStatus( VmbFrameStatusType eFrameStatus )
 //
 void FrameObserver::FrameReceived( const FramePtr pFrame )
 {
-    if(! SP_ISNULL( pFrame ) )
-    {
+  if(! SP_ISNULL( pFrame ) )
+  {
 	//VmbUint32_t 	nWidth = 0;
 	//VmbErrorType	res;        
 	//res = pFrame->GetBufferSize(nWidth);
@@ -106,24 +100,21 @@ void FrameObserver::FrameReceived( const FramePtr pFrame )
 	//    std::cout << "?" << std::endl;
 	//}
 
-	VmbFrameStatusType status;
-        VmbErrorType Result;
-        Result = SP_ACCESS( pFrame)->GetReceiveStatus( status);
-        if( VmbErrorSuccess == Result && VmbFrameStatusComplete == status)
-        {
-            std::cout<<"frame complete\n";
-        }
-        else
-        {
-            std::cout<<"frame incomplete\n";
-        }
-    }
-    else
+    VmbFrameStatusType status;
+    VmbErrorType Result;
+    Result = SP_ACCESS( pFrame)->GetReceiveStatus( status);
+    if( VmbErrorSuccess == Result && VmbFrameStatusComplete == status)
     {
-        std::cout <<" frame pointer NULL\n";
+        std::cout<<"frame complete\n";
+    } else
+    {
+        std::cout<<"frame incomplete\n";
     }
+  } else {
+      std::cout <<"frame pointer NULL\n";
+  }
+  m_pCamera->QueueFrame( pFrame );
 
-    m_pCamera->QueueFrame( pFrame );
 }
 
 

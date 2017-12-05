@@ -54,7 +54,11 @@ ApiController::~ApiController()
 //
 VmbErrorType ApiController::StartUp()
 {
-    return m_system.Startup();
+    VmbErrorType res;
+
+    // Start Vimba
+    res = m_system.Startup();
+    return res;
 }
 
 //
@@ -80,49 +84,45 @@ void ApiController::ShutDown()
 // Returns:
 //  An API status code
 //
-VmbErrorType ApiController::StartContinuousImageAcquisition()
+VmbErrorType ApiController::StartContinuousImageAcquisition( const std::string &rStrCameraID )
 {
     // Open the desired camera by its ID
-    //VmbErrorType res = m_system.OpenCameraByID( "50-0536877041", VmbAccessModeFull, m_pCamera );
-    //VmbErrorType res = m_system.OpenCameraByID( "DEV_000F315BA471", VmbAccessModeFull, m_pCamera );
     VmbErrorType res = m_system.OpenCameraByID( "192.168.2.2", VmbAccessModeFull, m_pCamera );
-    if ( VmbErrorSuccess == res )
+    if( VmbErrorSuccess == res )
     {
         // Set the GeV packet size to the highest possible value
         // (In this example we do not test whether this cam actually is a GigE cam)
-	// Needed on first startup of camera, to set GVSP size, else frame will become incomplete
         FeaturePtr pCommandFeature;
-        if ( VmbErrorSuccess == m_pCamera->GetFeatureByName( "GVSPAdjustPacketSize", pCommandFeature ))
+        if( VmbErrorSuccess == SP_ACCESS( m_pCamera )->GetFeatureByName( "GVSPAdjustPacketSize", pCommandFeature ) )
         {
-            if ( VmbErrorSuccess == pCommandFeature->RunCommand() )
+            if( VmbErrorSuccess == SP_ACCESS( pCommandFeature )->RunCommand() )
             {
                 bool bIsCommandDone = false;
                 do
                 {
-                    if ( VmbErrorSuccess != pCommandFeature->IsCommandDone( bIsCommandDone ))
+                    if( VmbErrorSuccess != SP_ACCESS( pCommandFeature )->IsCommandDone( bIsCommandDone ) )
                     {
                         break;
                     }
-                } while ( false == bIsCommandDone );
+                } while( false == bIsCommandDone );
             }
         }
+              
+        // Create a frame observer for this camera (This will be wrapped in a shared_ptr so we don't delete it)
+        SP_SET( m_pFrameObserver , new FrameObserver( m_pCamera ) );
+        // Start streaming
+        res = SP_ACCESS( m_pCamera )->StartContinuousImageAcquisition( NUM_FRAMES,  m_pFrameObserver );
 
-        if ( VmbErrorSuccess == res )
-        {
-            // Create a frame observer for this camera (This will be wrapped in a shared_ptr so we don't delete it)
-            m_pFrameObserver = new FrameObserver( m_pCamera );
-            // Start streaming
-            res = m_pCamera->StartContinuousImageAcquisition( NUM_FRAMES, IFrameObserverPtr( m_pFrameObserver ));
-        }
         if ( VmbErrorSuccess != res )
         {
             // If anything fails after opening the camera we close it
-            m_pCamera->Close();
+            SP_ACCESS( m_pCamera )->Close();
         }
     }
 
     return res;
 }
+
 
 //
 // Calls the API convenience function to stop image acquisition
@@ -134,7 +134,7 @@ VmbErrorType ApiController::StartContinuousImageAcquisition()
 VmbErrorType ApiController::StopContinuousImageAcquisition()
 {
     // Stop streaming
-    m_pCamera->StopContinuousImageAcquisition();
+    SP_ACCESS( m_pCamera )->StopContinuousImageAcquisition();
 
     // Close camera
     return  m_pCamera->Close();
@@ -146,11 +146,11 @@ VmbErrorType ApiController::StopContinuousImageAcquisition()
 // Returns:
 //  A vector of camera shared pointers
 //
-CameraPtrVector ApiController::GetCameraList() const
+CameraPtrVector ApiController::GetCameraList()
 {
     CameraPtrVector cameras;
     // Get all known cameras
-    if ( VmbErrorSuccess == m_system.GetCameras( cameras ))
+    if( VmbErrorSuccess == m_system.GetCameras( cameras ) )
     {
         // And return them
         return cameras;

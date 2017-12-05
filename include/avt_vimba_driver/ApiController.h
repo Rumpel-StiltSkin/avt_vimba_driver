@@ -101,9 +101,13 @@ class ApiController
     FramePtr            GetFrame();
 
   private:
-    VimbaSystem &       m_system;                   // A reference to our Vimba singleton
-    CameraPtr           m_pCamera;                  // The currently streaming camera
-    FrameObserver*      m_pFrameObserver;           // Every camera has its own frame observer
+    // A reference to our Vimba singleton
+    VimbaSystem&                m_system;
+    // The currently streaming camera
+    CameraPtr                   m_pCamera;
+    // Every camera has its own frame observer
+    IFrameObserverPtr           m_pFrameObserver;
+
 };
 
 }}} // namespace AVT::VmbAPI::Examples

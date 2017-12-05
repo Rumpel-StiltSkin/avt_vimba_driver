@@ -65,8 +65,6 @@ public:
     //
     virtual void FrameReceived( const FramePtr pFrame );
 
-    bool frameToImage(const FramePtr m_pCamera, sensor_msgs::Image& image)
-
 };
 
 }}} // namespace AVT::VmbAPI::Examples

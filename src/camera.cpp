@@ -1,10 +1,11 @@
 #include <avt_vimba_driver/RosVimbaApi.h>
-#include <avt_vimba_driver/FrameObserver.h>
 
 #include <ros/ros.h>
 #include <image_transport/image_transport.h>
 #include <opencv2/highgui/highgui.hpp>
 #include <cv_bridge/cv_bridge.h>
+
+using AVT::VmbAPI::FramePtr;
 
 int main(int argc, char** argv)
 {
@@ -44,6 +45,7 @@ int main(int argc, char** argv)
       std::cout<<"Opening camera with ID: 192.168.2.2";
       SP_SET( m_pFrameObserver , new FrameObserver( m_pCamera ) );
       err = apiController.StartContinuousImageAcquisition();
+
 	    if ( VmbErrorSuccess != err)
 	    {
 	    	apiController.StopContinuousImageAcquisition();
@@ -51,6 +53,13 @@ int main(int argc, char** argv)
 	    }
 	  }
 	}
+
+  FramePtr pFrame = m_ApiController.GetFrame();
+  if( SP_ISNULL( pFrame ) )
+  {
+      std::cout << "frame pointer is NULL, late frame ready message\n";
+      return;
+  }
 
   ros::Rate loop_rate(5);
   while (nh.ok()) {
