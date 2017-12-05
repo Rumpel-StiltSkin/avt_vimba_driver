@@ -93,22 +93,12 @@ class ApiController
     CameraPtrVector     GetCameraList() const;
     
     //
-    // Translates Vimba error codes to readable error messages
-    //
-    // Parameters:
-    //  [in]    eErr        The error code to be converted to string
+    // Gets the oldest frame that has not been picked up yet
     //
     // Returns:
-    //  A descriptive string representation of the error code
+    //  A frame shared pointer
     //
-    
-    //
-    // Gets the version of the Vimba API
-    //
-    // Returns:
-    //  The version as string
-    //
-    //std::string         GetVersion() const;
+    FramePtr            GetFrame();
 
   private:
     VimbaSystem &       m_system;                   // A reference to our Vimba singleton

@@ -32,6 +32,12 @@
 
 #include "avt_vimba_driver/FrameObserver.h"
 
+#include <ros/ros.h>
+#include <ros/console.h>
+#include <sensor_msgs/Image.h>
+#include <sensor_msgs/image_encodings.h>
+#include <sensor_msgs/fill_image.h>
+
 namespace AVT {
 namespace VmbAPI {
 namespace Examples {
@@ -119,4 +125,35 @@ void FrameObserver::FrameReceived( const FramePtr pFrame )
 
     m_pCamera->QueueFrame( pFrame );
 }
+
+//
+// After the view has been notified about a new frame it can pick it up.
+// It is then removed from the internal queue
+//
+// Returns:
+//  A shared pointer to the latest frame
+//
+FramePtr FrameObserver::GetFrame()
+{
+    // Lock the frame queue
+    m_FramesMutex.lock();
+    // Pop frame from queue
+    FramePtr res;
+    if( !m_Frames.empty() )
+    {
+        res = m_Frames.front();
+        m_Frames.pop();
+    }
+    // Unlock frame queue
+    m_FramesMutex.unlock();
+    return res;
+}
+
+FramePtr FrameObserver::GetFrame( const FramePtr pFrame )
+{
+  return pFrame
+}
+
+
+
 }}} // namespace AVT::VmbAPI::Examples

@@ -157,4 +157,16 @@ CameraPtrVector ApiController::GetCameraList() const
     }
     return CameraPtrVector();
 }
+
+//
+// Gets the oldest frame that has not been picked up yet
+//
+// Returns:
+//  A frame shared pointer
+//
+FramePtr ApiController::GetFrame()
+{
+    return SP_DYN_CAST( m_pFrameObserver, FrameObserver )->GetFrame();
+}
+
 }}} // namespace AVT::VmbAPI::Examples

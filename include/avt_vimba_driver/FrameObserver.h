@@ -32,6 +32,12 @@
 #include <queue>
 #include "VimbaCPP/Include/VimbaCPP.h"
 
+#include <ros/ros.h>
+#include <ros/console.h>
+#include <sensor_msgs/Image.h>
+#include <sensor_msgs/image_encodings.h>
+#include <sensor_msgs/fill_image.h>
+
 namespace AVT {
 namespace VmbAPI {
 namespace Examples {
@@ -58,6 +64,19 @@ public:
     //  [in]    pFrame          The frame returned from the API
     //
     virtual void FrameReceived( const FramePtr pFrame );
+
+    bool frameToImage(const FramePtr m_pCamera, sensor_msgs::Image& image)
+    FramePtr FrameObserver::GetFrame( const FramePtr pFrame )
+
+    //
+    // After the view has been notified about a new frame it can pick it up.
+    // It is then removed from the internal queue
+    //
+    // Returns:
+    //  A shared pointer to the latest frame
+    //
+    FramePtr GetFrame();
+
 };
 
 }}} // namespace AVT::VmbAPI::Examples
