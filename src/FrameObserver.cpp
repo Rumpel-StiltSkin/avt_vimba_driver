@@ -90,33 +90,42 @@ void FrameObserver::FrameReceived( const FramePtr pFrame )
 {
   if(! SP_ISNULL( pFrame ) )
   {
-	//VmbUint32_t 	nWidth = 0;
-	//VmbErrorType	res;        
-	//res = pFrame->GetBufferSize(nWidth);
-	//if (VmbErrorSuccess == res)
-	//{
-	//    std::cout << nWidth << std::endl;
-	//} else {
-	//    std::cout << "?" << std::endl;
-	//}
-
+    m_Frames.push(pFrame);
+      
     VmbFrameStatusType status;
     VmbErrorType Result;
     Result = SP_ACCESS( pFrame)->GetReceiveStatus( status);
-    if( VmbErrorSuccess == Result && VmbFrameStatusComplete == status)
-    {
-        std::cout<<"frame complete\n";
-    } else
+
+    if( VmbErrorSuccess != Result || VmbFrameStatusComplete != status)
     {
         std::cout<<"frame incomplete\n";
     }
   } else {
       std::cout <<"frame pointer NULL\n";
   }
+
   m_pCamera->QueueFrame( pFrame );
 
 }
 
+FramePtr FrameObserver::GetFrame()
+{
+  FramePtr res;
+  res = m_Frames.front();
+  m_Frames.pop();
+  return res;
+}
+
+void FrameObserver::GetFrameInfo(const FramePtr _pFrame)
+{
+  VmbUint32_t	nWidth = 0;
+  VmbErrorType 	res;  
+  res = _pFrame->GetWidth(nWidth);
+  if (VmbErrorSuccess == res)
+  { 
+    std::cout << nWidth << std::endl;
+  }
+}
 
 
 }}} // namespace AVT::VmbAPI::Examples

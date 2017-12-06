@@ -65,6 +65,12 @@ public:
     //
     virtual void FrameReceived( const FramePtr pFrame );
 
+    FramePtr GetFrame(); //FramePtr
+    void GetFrameInfo(const FramePtr _pFrame);
+
+private:
+    std::queue<FramePtr> m_Frames;
+
 };
 
 }}} // namespace AVT::VmbAPI::Examples

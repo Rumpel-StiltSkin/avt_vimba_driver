@@ -90,7 +90,7 @@ class ApiController
     // Returns:
     //  A vector of camera shared pointers
     //
-    CameraPtrVector     GetCameraList() const;
+    CameraPtrVector     GetCameraList();
     
     //
     // Gets the oldest frame that has not been picked up yet
