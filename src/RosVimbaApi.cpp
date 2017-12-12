@@ -1,4 +1,4 @@
-#include <VimbaCPP/Include/VimbaCPP.h>
+#include <avt_vimba_driver/RosVimbaApi.h>
 
 #include <ros/ros.h>
 #include <ros/console.h>
@@ -8,7 +8,10 @@
 
 using AVT::VmbAPI::FramePtr;
 
-bool frameToImage(const FramePtr pFrame, sensor_msgs::Image& image) {
+//namespace ROS {
+//namespace VmbAPI {
+
+bool  frameToImage(const FramePtr pFrame, sensor_msgs::Image& image) {
       VmbPixelFormatType pixel_format;
       VmbUint32_t width, height, nSize;
     
@@ -73,3 +76,5 @@ bool frameToImage(const FramePtr pFrame, sensor_msgs::Image& image) {
       }
       return res;
 }
+
+//}} // ROS::VmbApi

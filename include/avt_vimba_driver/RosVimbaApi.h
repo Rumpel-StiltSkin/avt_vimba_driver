@@ -11,17 +11,20 @@ using AVT::VmbAPI::VimbaSystem;
 using AVT::VmbAPI::CameraPtr;
 using AVT::VmbAPI::FramePtr;
 
-namespace ROS {
-namespace VmbAPI {
+bool frameToImage(const FramePtr pFrame, sensor_msgs::Image& image); 
 
-class RosVimbaApi {
 
-public:
+//namespace ROS {
+//namespace VmbAPI {
 
-    bool frameToImage(const FramePtr pFrame, sensor_msgs::Image& image) 
-
-};
-
-}} // ROS::VmbAPI
+//class RosVimbaApi
+//{
+//  public:
+//    RosVimbaApi();
+//    void frameToImage(const FramePtr pFrame, sensor_msgs::Image& image); 
+//
+//};
+//
+//}} // ROS::VmbAPI
 
 #endif

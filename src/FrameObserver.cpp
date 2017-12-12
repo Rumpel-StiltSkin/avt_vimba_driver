@@ -91,7 +91,10 @@ void FrameObserver::FrameReceived( const FramePtr pFrame )
   if(! SP_ISNULL( pFrame ) )
   {
     m_Frames.push(pFrame);
-      
+    std::cout << m_Frames.size() << std::endl;
+ 
+    GetFrameInfo(pFrame);
+ 
     VmbFrameStatusType status;
     VmbErrorType Result;
     Result = SP_ACCESS( pFrame)->GetReceiveStatus( status);

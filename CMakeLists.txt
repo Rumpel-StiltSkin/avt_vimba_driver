@@ -40,9 +40,40 @@ include_directories(
 )
 
 
-add_executable(camera src/camera.cpp src/FrameObserver.cpp src/ApiController.cpp)
+add_executable(camera 
+	src/camera.cpp 
+	src/FrameObserver.cpp 
+	src/ApiController.cpp 
+	src/RosVimbaApi.cpp
+)
 
 target_link_libraries(camera
+  ${catkin_LIBRARIES}
+  ${CMAKE_CURRENT_SOURCE_DIR}/lib/arm_64bit/libVimbaC.so
+  ${CMAKE_CURRENT_SOURCE_DIR}/lib/arm_64bit/libVimbaCPP.so
+)
+
+add_executable(camera1
+	src/camera1.cpp 
+	src/FrameObserver.cpp 
+	src/ApiController.cpp 
+	src/RosVimbaApi.cpp
+)
+
+target_link_libraries(camera1
+  ${catkin_LIBRARIES}
+  ${CMAKE_CURRENT_SOURCE_DIR}/lib/arm_64bit/libVimbaC.so
+  ${CMAKE_CURRENT_SOURCE_DIR}/lib/arm_64bit/libVimbaCPP.so
+)
+
+add_executable(camera2 
+	src/camera2.cpp 
+	src/FrameObserver.cpp 
+	src/ApiController.cpp 
+	src/RosVimbaApi.cpp
+)
+
+target_link_libraries(camera2
   ${catkin_LIBRARIES}
   ${CMAKE_CURRENT_SOURCE_DIR}/lib/arm_64bit/libVimbaC.so
   ${CMAKE_CURRENT_SOURCE_DIR}/lib/arm_64bit/libVimbaCPP.so
@@ -57,7 +88,17 @@ install(TARGETS camera
   RUNTIME DESTINATION ${CATKIN_PACKAGE_BIN_DESTINATION}
 )
 
+install(TARGETS camera1 
+  ARCHIVE DESTINATION ${CATKIN_PACKAGE_LIB_DESTINATION}
+  LIBRARY DESTINATION ${CATKIN_PACKAGE_LIB_DESTINATION}
+  RUNTIME DESTINATION ${CATKIN_PACKAGE_BIN_DESTINATION}
+)
 
+install(TARGETS camera2
+  ARCHIVE DESTINATION ${CATKIN_PACKAGE_LIB_DESTINATION}
+  LIBRARY DESTINATION ${CATKIN_PACKAGE_LIB_DESTINATION}
+  RUNTIME DESTINATION ${CATKIN_PACKAGE_BIN_DESTINATION}
+)
 install(DIRECTORY include
   DESTINATION ${CATKIN_PACKAGE_INCLUDE_DESTINATION}
   PATTERN ".svn" EXCLUDE

@@ -10,10 +10,10 @@ using AVT::VmbAPI::FramePtr;
 
 int main(int argc, char** argv)
 {
-  ros::init(argc, argv, "image_publisher");
+  ros::init(argc, argv, "image_publisher2");
   ros::NodeHandle nh;
   image_transport::ImageTransport it(nh);
-  image_transport::Publisher pub = it.advertise("camera/image", 1);
+  image_transport::Publisher pub = it.advertise("camera/image2", 1);
 
   //VmbErrorType err = VmbErrorSuccess;
 
@@ -44,7 +44,7 @@ int main(int argc, char** argv)
     if ( VmbErrorSuccess == err )
     {
       std::cout<<"Opening camera with ID: 192.168.2.2\n";
-      err = apiController.StartContinuousImageAcquisition("192.168.2.2");
+      err = apiController.StartContinuousImageAcquisition("192.168.4.2");
 
 	if ( VmbErrorSuccess != err)
 	{
@@ -64,7 +64,7 @@ int main(int argc, char** argv)
         sensor_msgs::Image img;
 
         FramePtr pFrame = apiController.GetFrame();
-     	ROS_INFO("Got Frame");
+	
 	//VmbUint32_t nWidth = 0;
 	//VmbErrorType res;
 	//res = SP_ACCESS(pFrame)->GetWidth(nWidth);
@@ -81,7 +81,6 @@ int main(int argc, char** argv)
           //ci.header.stamp = img.header.stamp = ros_time;
           //img.header.frame_id = ci.header.frame_id;
           pub.publish(img); //, ci);
-	  ROS_INFO("Published");
         } else {
           ROS_WARN_STREAM("Function frameToImage returned 0. No image published.");
         }

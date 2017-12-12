@@ -35,7 +35,7 @@ namespace AVT {
 namespace VmbAPI {
 namespace Examples {
 
-#define NUM_FRAMES 3
+#define NUM_FRAMES 20
 
 ApiController::ApiController()
     // Get a reference to the Vimba singleton
@@ -84,10 +84,10 @@ void ApiController::ShutDown()
 // Returns:
 //  An API status code
 //
-VmbErrorType ApiController::StartContinuousImageAcquisition()
+VmbErrorType ApiController::StartContinuousImageAcquisition(const char* IP)
 {
     // Open the desired camera by its ID
-    VmbErrorType res = m_system.OpenCameraByID( "192.168.3.2", VmbAccessModeFull, m_pCamera );
+    VmbErrorType res = m_system.OpenCameraByID( IP, VmbAccessModeFull, m_pCamera );
     if( VmbErrorSuccess == res )
     {
         // Set the GeV packet size to the highest possible value

@@ -1,0 +1,15 @@
+<launch>
+
+  <group ns="camera1">
+    <node pkg="avt_vimba_driver" name="cam" type="camera_node"/>
+  </group>
+
+  <group ns="camera2">
+    <node pkg="avt_vimba_driver" name="cam" type="camera_node"/>
+  </group>
+
+  <group ns="camera3">
+    <node pkg="avt_vimba_driver" name="cam" type="camera_node"/>
+  </group>
+
+</launch>

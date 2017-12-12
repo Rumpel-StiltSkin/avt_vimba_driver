@@ -74,7 +74,7 @@ class ApiController
     //  An API status code
     //
     //VmbErrorType        StartContinuousImageAcquisition( const ProgramConfig & );    
-    VmbErrorType        StartContinuousImageAcquisition(); 
+    VmbErrorType        StartContinuousImageAcquisition(const char* IP); 
     //
     // Calls the API convenience function to stop image acquisition
     // Closes the camera
